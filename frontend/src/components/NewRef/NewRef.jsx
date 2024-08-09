@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form } from "../NewList/NewList.style";
 import { Main, MainContent, MainItems } from "../Turma/Turma.style";
@@ -8,12 +8,28 @@ import arrow from "../../assets/arrow.png";
 
 const QuestionFormRef = ({ turmaId }) => {
   const [references, setReferences] = useState([]);
+  const [tags, setTags] = useState([]); // Estado para as tags existentes
   const [newReference, setNewReference] = useState({
     turmaId: turmaId,
     ref: "",
     tag: "",
     formato: "Vídeo",
   });
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8800/professor/turma/${turmaId}/tags`
+        );
+        setTags(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar tags:", error);
+      }
+    };
+
+    fetchTags();
+  }, [turmaId]);
 
   const handleAddReference = async () => {
     try {
@@ -62,10 +78,19 @@ const QuestionFormRef = ({ turmaId }) => {
           <label>Assunto:</label>
           <div>
             <input
+              list="tag-options"
               type="text"
               value={newReference.tag}
               onChange={(e) => handleChangeReference(e, "tag")}
+              placeholder="Selecione ou adicione uma tag"
             />
+            <datalist id="tag-options">
+              {tags.map((tag, index) => (
+                <option key={index} value={tag}>
+                  {tag}
+                </option>
+              ))}
+            </datalist>
           </div>
         </div>
         <div className="resposta">

@@ -8,6 +8,7 @@ import { participarTurma } from "../controllers/participateTurma.js";
 import { criarTurma } from "../controllers/createTurma.js";
 import { db } from "../db.js";
 import { getChamada, getGrupos, salvarChamada, salvarGrupos } from "../controllers/grupos.js";
+import { getTags } from "../controllers/tags.js";
 
 
 const router = express.Router();
@@ -108,6 +109,8 @@ router.get('/turma/:turmaId/ListarAlunos', (req, res) => {
 });
 
 router.post('/turmas/criar-turma', criarTurma);
+
+router.get('/professor/turma/:turmaId/tags', getTags);
 
 
 
