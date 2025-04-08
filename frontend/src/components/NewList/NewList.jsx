@@ -31,7 +31,7 @@ const QuestionForm = ({
   });
   const [newQuestion, setNewQuestion] = useState({
     pergunta: "",
-    alternativa: { a: "", b: "", c: "", d: "" },
+    alternativa: { a: "", b: "", c: "", d: "" , e: "" },
     resposta: "a",
     tags: ["", "", ""],
   });
@@ -64,7 +64,7 @@ const QuestionForm = ({
     for (const key in alternativa) {
       if (!alternativa[key].trim()) return false;
     }
-    if (!["a", "b", "c", "d"].includes(resposta)) return false;
+    if (!["a", "b", "c", "d", "e"].includes(resposta)) return false;
     if (!tags.some((tag) => tag.trim() !== "")) return false;
 
     return true;
@@ -81,7 +81,7 @@ const QuestionForm = ({
       setQuestions([...questions, newQuestion]);
       setNewQuestion({
         pergunta: "",
-        alternativa: { a: "", b: "", c: "", d: "" },
+        alternativa: { a: "", b: "", c: "", d: "", e: "" },
         resposta: "a",
         tags: ["", "", ""],
       });
@@ -113,7 +113,7 @@ const QuestionForm = ({
       setNewList({ nome: "" });
       setNewQuestion({
         pergunta: "",
-        alternativa: { a: "", b: "", c: "", d: "" },
+        alternativa: { a: "", b: "", c: "", d: "", e: "" },
         resposta: "a",
         tags: ["", "", ""],
       });
@@ -166,7 +166,7 @@ const QuestionForm = ({
         value={newList.nome}
         onChange={(e) => setNewList({ nome: e.target.value })}
       />
-      <p className="enunciado">Enunciado</p>
+      <p className="enunciado">Enunciados</p>
       <textarea
         type="text"
         placeholder="Digite a pergunta"
@@ -210,6 +210,14 @@ const QuestionForm = ({
             onChange={(e) => handleChangeAlternative(e, "d")}
           />
         </div>
+        <div>
+          <label>e)</label>
+          <input
+            type="text"
+            value={newQuestion.alternativa.e}
+            onChange={(e) => handleChangeAlternative(e, "e")}
+          />
+        </div>
       </div>
       <div className="resposta">
         <label>Alternativa correta:</label>
@@ -223,6 +231,7 @@ const QuestionForm = ({
           <option value="b">b</option>
           <option value="c">c</option>
           <option value="d">d</option>
+          <option value="e">e</option>
         </select>
       </div>
 

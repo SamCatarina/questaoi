@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS perguntas (
     alternativa_b TEXT,
     alternativa_c TEXT,
     alternativa_d TEXT,
+    alternativa_e TEXT,
     resposta_correta CHAR(1),
     tag_1 VARCHAR(255),
     tag_2 VARCHAR(255),
